@@ -5,9 +5,9 @@ class Player
   ACCELERATION = 1
   FRICTION = 0.9
 
-  def initialize(window)
-    @x = 200
-    @y = 400
+  def initialize(window, x=200, y=400)
+    @x = x
+    @y = y
     @angle = 0
     @image = Gosu::Image.new('images/ship.png')
     @velocity_x = 0

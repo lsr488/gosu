@@ -1,2 +1,8 @@
 source 'https://rubygems.org'
 gem 'gosu'
+
+group :test do
+  gem 'simplecov'
+  gem 'rspec'
+  gem 'rspec-simplecov'
+end
