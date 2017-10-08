@@ -1,6 +1,6 @@
 class Enemy
   SPEED = 4
-  ANGLE = rand(-5..5)
+  ANGLE = 0
 
   def initialize(window)
     @radius = 20
