@@ -19,7 +19,7 @@ attr_accessor :sorted_high_scores
     @font = Gosu::Font.new(30) #writes text on screen, eg for keeping score
     @playing = true
     @start_time = 0
-    @game_duration = 30
+    @game_duration = 60
     @score = 0
     @for_score_records = 0
     @high_scores = []
@@ -103,9 +103,10 @@ attr_accessor :sorted_high_scores
       @high_scores << line.chomp.to_i
     end
     
-    @high_scores.each do |num|
-      num.to_s.rjust(2,'0')
-    end
+    #this adds a leading 0 to two-digit numbers, but it's unnecessary since @high_score is now integers by default
+    # @high_scores.each do |num|
+    #   num.to_s.rjust(2,'0')
+    # end
 
     @sorted_high_scores = @high_scores.sort.reverse
     
