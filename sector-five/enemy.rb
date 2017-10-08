@@ -6,7 +6,7 @@ class Enemy
     @x = rand(window.width - 2 * @radius) + @radius
     @y = 0 # top of window
     @image = Gosu::Image.new('images/enemy.png')
-    @angle = rand(-5..5)
+    @angle = rand(-3..3)
     @speed = rand(1..3)
     @window = window
   end

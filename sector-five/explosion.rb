@@ -1,5 +1,5 @@
 class Explosion
-  attr_reader :x, :y, :finished
+  attr_reader :x, :y, :radius, :finished
 
   def initialize(window, x, y)
     @window = window
@@ -21,5 +21,9 @@ class Explosion
       @finished = true
     end
   end
+
+  # how could you get the explosions to drift?
+  #def move
+  #end
 
 end

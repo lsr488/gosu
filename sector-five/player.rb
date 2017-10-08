@@ -39,15 +39,15 @@ class Player
     @velocity_x *= FRICTION
     @velocity_y *= FRICTION
     if @x > @window.width - @radius # right side
-      @velocity_x *= -1
+      @velocity_x *= -1 # ship bounces
       @x = @window.width - @radius
     end
     if @x < @radius # left side
-      @velocity_x *= -1
+      @velocity_x *= -1 # ship bounces
       @x = @radius
     end
     if @y > @window.height - @radius # bottom edge
-      @velocity_y *= -1
+      @velocity_y *= -1 # ship bounces
       @y = @window.height - @radius
     end
   end
