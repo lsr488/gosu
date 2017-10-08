@@ -19,13 +19,20 @@ class SectorFive < Gosu::Window
   end
 
   def draw
+    # draws the player ship
     @player.draw
+
+    # draws a new enemy
     @enemies.each do |enemy|
       enemy.draw
     end
+
+    # draws a new bullet
     @bullets.each do |bullet|
       bullet.draw
     end
+
+    # draws a new explosion
     @explosions.each do |explosion|
       explosion.draw
     end

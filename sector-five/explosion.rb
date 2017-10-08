@@ -13,7 +13,7 @@ class Explosion
 
   def draw
     if @image_index < @images.count
-      #@images_index allows you to iterate through each element of the @images array
+      #@image_index allows you to iterate through each element of the @images array
       @images[@image_index].draw(@x - @radius, @y - @radius, 2)
       #and then you increment the @images_index number so you can move to the next element
       @image_index += 1
@@ -22,8 +22,6 @@ class Explosion
     end
   end
 
-  # how could you get the explosions to drift?
-  #def move
-  #end
-
 end
+
+#have explosions drift?

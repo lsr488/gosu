@@ -29,3 +29,5 @@ class Bullet
   end
 
 end
+
+#enemy fire?

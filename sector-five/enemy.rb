@@ -20,11 +20,11 @@ class Enemy
     @x += @angle   
     if @x > @window.width - @radius # right side
       @x = @window.width - @radius
-      @angle *= -1 # enemy ship bounces
+      @angle *= -1 # enemy ship reverses direction
     end
     if @x < @radius # left side
       @x = @radius
-      @angle *= -1 # enemy ship bounces
+      @angle *= -1 # enemy ship reverse direction
     end
   end
 
