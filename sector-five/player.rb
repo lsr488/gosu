@@ -1,6 +1,6 @@
 class Player
 
-  ROTATION_SPEED = 3
+  ROTATION_SPEED = 5
   ACCELERATION = 2
   FRICTION = 0.9
 
@@ -37,15 +37,15 @@ class Player
     @y += @velocity_y
     @velocity_x *= FRICTION
     @velocity_y *= FRICTION
-    if @x > @window.width - @radius
+    if @x > @window.width - @radius # right side
       @velocity_x = 0
       @x = @window.width - @radius
     end
-    if @x < @radius
+    if @x < @radius # left side
       @velocity_x = 0
       @x = @radius
     end
-    if @y > @window.height - @radius
+    if @y > @window.height - @radius # bottom edge
       @velocity_y = 0
       @y = @window.height - @radius
     end
