@@ -70,7 +70,7 @@ class WhackARuby < Gosu::Window
         end
       end
     else
-      if (id == Gosu::KbSpace)
+      if (id == Gosu::KbSpace) #press spacebar to continue, resets values
         @playing = true
         @visible = -10
         @start_time = Gosu.milliseconds
