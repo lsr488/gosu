@@ -8,7 +8,7 @@ require_relative 'credit'
 class SectorFive < Gosu::Window
   WIDTH = 800
   HEIGHT = 600
-  ENEMY_FREQUENCY = 0.05
+  ENEMY_FREQUENCY = 0.01
   MAX_ENEMIES = 100
 
   def initialize
@@ -34,9 +34,14 @@ class SectorFive < Gosu::Window
     @shooting_sound = Gosu::Sample.new('sounds/shoot.ogg')
     @score_font = Gosu::Font.new(30)
     @score = 0
+    @high_scores = []
+    @sorted_high_scores = []
   end
 
   def initialize_end(fate)
+    update_score
+    sort_score
+
     # displays different messages based on end conditions
     case fate
     when :count_reached
@@ -55,6 +60,7 @@ class SectorFive < Gosu::Window
       @message3 = "Your final score was #{@score}."
     end
     @bottom_message = "Press P to play again, or Q to quit."
+    @bottom_message2 = "High scores: #{@sorted_high_scores.first(3).join(', ')}"
     @message_font = Gosu::Font.new(28)
     
     # scrolls credits from a separate txt file
@@ -65,8 +71,11 @@ class SectorFive < Gosu::Window
       y += 30
     end
     @scene = :end
+    
     @end_music = Gosu::Song.new('sounds/FromHere.ogg')
     @end_music.play(true)
+
+
   end
 
   def draw
@@ -122,7 +131,8 @@ class SectorFive < Gosu::Window
     @message_font.draw(@message2,40,70,1,1,1,Gosu::Color::FUCHSIA)
     @message_font.draw(@message3,40,100,1,1,1,Gosu::Color::YELLOW)
     draw_line(0,500,Gosu::Color::RED,WIDTH,500,Gosu::Color::RED)
-    @message_font.draw(@bottom_message,180,540,1,1,1,Gosu::Color::AQUA)
+    @message_font.draw(@bottom_message,180,520,1,1,1,Gosu::Color::AQUA)
+    @message_font.draw(@bottom_message2, 180, 550, 1, 1, 1, Gosu::Color::YELLOW)
   end
 
   def update
@@ -226,6 +236,22 @@ class SectorFive < Gosu::Window
     end
   end
 
+  def update_score
+    filename = "scores.txt"
+    File.open(filename, 'a+') do |file|
+      file.write(@score)
+      file.write "\n"
+    end
+  end
+
+  def sort_score
+    filename = "scores.txt"
+    File.open(filename, 'a+').each_line do |line|
+      @high_scores << line.chomp.to_i
+    end
+    @sorted_high_scores = @high_scores.sort.reverse
+  end
+
   def button_down(id)
     case @scene
     when :start
@@ -247,6 +273,7 @@ class SectorFive < Gosu::Window
   end
 
   def button_down_game(id)
+    # fire(id)
     # fires a bullet from Player ship when you press spacebar
     if id == Gosu::KbSpace
       @bullets.push Bullet.new(self, @player.x, @player.y, @player.angle)
@@ -263,6 +290,15 @@ class SectorFive < Gosu::Window
     end
   end
 
+  # private
+  # def fire(id)
+  #   # fires a bullet from Player ship when you press spacebar
+  #   if id == Gosu::KbSpace
+  #     @bullets.push Bullet.new(self, @player.x, @player.y, @player.angle)
+  #     @shooting_sound.play(0.3) # 0.3 modifies the sound volume to be quieter
+  #   end
+  # end
+  
 end
 
 window = SectorFive.new
