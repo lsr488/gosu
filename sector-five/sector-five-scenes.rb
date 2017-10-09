@@ -32,6 +32,8 @@ class SectorFive < Gosu::Window
     @game_music.play(true)
     @explosion_sound = Gosu::Sample.new('sounds/explosion.ogg')
     @shooting_sound = Gosu::Sample.new('sounds/shoot.ogg')
+    @score_font = Gosu::Font.new(30)
+    @score = 0
   end
 
   def initialize_end(fate)
@@ -40,14 +42,17 @@ class SectorFive < Gosu::Window
     when :count_reached
       @message = "You made it! You destroyed #{@enemies_destroyed} enemy ships"
       @message2 = "and #{100 - @enemies_destroyed} reached your base."
+      @message3 = "Your final score was #{@score}."
     when :hit_by_enemy
       @message = "You were struck by an enemy ship."
       @message2 = "Before your ship was destroyed, "
       @message2 += "you took out #{@enemies_destroyed} enemy ships."
+      @message3 = "Your final score was #{@score}."
     when :off_top
       @message = "You got too close to the enemy mother ship."
       @message2 = "Before your ship was destroyed, "
       @message2 += "you took out #{@enemies_destroyed} enemy ships."
+      @message3 = "Your final score was #{@score}."
     end
     @bottom_message = "Press P to play again, or Q to quit."
     @message_font = Gosu::Font.new(28)
@@ -98,6 +103,8 @@ class SectorFive < Gosu::Window
     @explosions.each do |explosion|
       explosion.draw
     end
+
+    @score_font.draw("Score: #{@score.to_s}", 20, 20, 2)
   end
 
   def draw_end
@@ -113,6 +120,7 @@ class SectorFive < Gosu::Window
     # (@message, x, y, ??, x-scaling-factor, y-scaling-factor, GosuColor)
     @message_font.draw(@message,40,40,1,1,1,Gosu::Color::FUCHSIA)
     @message_font.draw(@message2,40,70,1,1,1,Gosu::Color::FUCHSIA)
+    @message_font.draw(@message3,40,100,1,1,1,Gosu::Color::YELLOW)
     draw_line(0,500,Gosu::Color::RED,WIDTH,500,Gosu::Color::RED)
     @message_font.draw(@bottom_message,180,540,1,1,1,Gosu::Color::AQUA)
   end
@@ -159,6 +167,7 @@ class SectorFive < Gosu::Window
           @explosions.push Explosion.new(self, enemy.x, enemy.y)
           @enemies_destroyed += 1
           @explosion_sound.play(0.3)
+          @score += 1
         end
       end
     end
@@ -170,6 +179,8 @@ class SectorFive < Gosu::Window
         if distance < enemy.radius + explosion.radius
           @enemies.delete enemy
           @explosions.push Explosion.new(self, enemy.x, enemy.y)
+          @enemies_destroyed += 1
+          @score += 1
         end
       end
     end
