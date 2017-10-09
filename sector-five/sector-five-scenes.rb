@@ -15,7 +15,9 @@ class SectorFive < Gosu::Window
     super(WIDTH, HEIGHT)
     self.caption = "Sector Five"
     @background_image = Gosu::Image.new('images/start_screen.png')
-    @scene = :start 
+    @scene = :start
+    @start_music = Gosu::Song.new('sounds/Lost Frontier.ogg')
+    @start_music.play(true)
   end
 
   def initialize_game
@@ -26,6 +28,10 @@ class SectorFive < Gosu::Window
     @scene = :game
     @enemies_appeared = 0
     @enemies_destroyed = 0
+    @game_music = Gosu::Song.new('sounds/Cephalopod.ogg')
+    @game_music.play(true)
+    @explosion_sound = Gosu::Sample.new('sounds/explosion.ogg')
+    @shooting_sound = Gosu::Sample.new('sounds/shoot.ogg')
   end
 
   def initialize_end(fate)
@@ -54,6 +60,8 @@ class SectorFive < Gosu::Window
       y += 30
     end
     @scene = :end
+    @end_music = Gosu::Song.new('sounds/FromHere.ogg')
+    @end_music.play(true)
   end
 
   def draw
@@ -150,6 +158,7 @@ class SectorFive < Gosu::Window
           @bullets.delete bullet
           @explosions.push Explosion.new(self, enemy.x, enemy.y)
           @enemies_destroyed += 1
+          @explosion_sound.play(0.3)
         end
       end
     end
@@ -230,6 +239,7 @@ class SectorFive < Gosu::Window
     # fires a bullet from Player ship when you press spacebar
     if id == Gosu::KbSpace
       @bullets.push Bullet.new(self, @player.x, @player.y, @player.angle)
+      @shooting_sound.play(0.3) # 0.3 modifies the sound volume to be quieter
     end
   end
 
