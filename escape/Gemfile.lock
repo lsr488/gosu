@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    chipmunk (6.1.3.4)
+    gosu (0.12.1-x86-mingw32)
+
+PLATFORMS
+  x86-mingw32
+
+DEPENDENCIES
+  chipmunk
+  gosu
+
+BUNDLED WITH
+   1.14.6
