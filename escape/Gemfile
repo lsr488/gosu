@@ -1,9 +1,4 @@
 source 'https://rubygems.org'
+
 gem 'gosu'
 gem 'chipmunk'
-
-group :test do
-  gem 'simplecov'
-  gem 'rspec'
-  gem 'rspec-simplecov'
-end
