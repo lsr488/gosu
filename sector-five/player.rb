@@ -26,6 +26,7 @@ class Player
 
   def turn_left
     @angle -= ROTATION_SPEED
+    return :turn_left
   end
 
   def accelerate

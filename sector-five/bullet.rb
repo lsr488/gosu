@@ -7,12 +7,12 @@ class Bullet
     @x = x
     @y = y
     @direction = angle
-    @image = Gosu::Image.new('images/bullet.png')
+    @player_bullet = Gosu::Image.new('images/bullet.png')
     @radius = 3
   end
 
   def draw
-    @image.draw(@x - @radius, @y - @radius, 1)
+    @player_bullet.draw(@x - @radius, @y - @radius, 1)
   end
 
   def move

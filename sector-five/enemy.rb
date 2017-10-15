@@ -1,3 +1,4 @@
+
 class Enemy
   attr_reader :x, :y, :radius
 
@@ -6,8 +7,8 @@ class Enemy
     @x = rand(window.width - 2 * @radius) + @radius
     @y = 0 # top of window
     @image = Gosu::Image.new('images/enemy.png')
-    @angle = rand(-3..3)
-    @speed = rand(1..3)
+    @angle = rand(-3..3) # enemies enter at a random angle
+    @speed = 1 # how quickly enemy descends the screen
     @window = window
   end
 

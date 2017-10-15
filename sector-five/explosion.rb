@@ -13,10 +13,10 @@ class Explosion
 
   def draw
     if @image_index < @images.count
-      #@image_index allows you to iterate through each element of the @images array
       @images[@image_index].draw(@x - @radius, @y - @radius, 2)
-      #and then you increment the @images_index number so you can move to the next element
       @image_index += 1
+    #@image_index allows you to iterate through each element of the @images array
+    #and then you increment the @images_index number so you can move to the next element
     else
       @finished = true
     end

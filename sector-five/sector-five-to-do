@@ -1,0 +1,8 @@
+# add more scenes
+#   with increasing number of enemies
+#   with enemies that shoot back
+#   with enemies that move quicker and/or in different directions
+#   with enemies that are worth more pints
+# add player hit points
+#   BUG: player is invincible in starting location, but not elsewhere (line 216)
+#   BUG: sometimes when moving through empty space, game thinks you've hit a ship

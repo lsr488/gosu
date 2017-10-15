@@ -118,5 +118,5 @@ class SectorFive < Gosu::Window
 end
 
 
-window = SectorFive.new
-window.show
+# window = SectorFive.new
+# window.show
