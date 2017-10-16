@@ -3,6 +3,7 @@ require 'chipmunk'
 require_relative 'boulder'
 require_relative 'platform'
 require_relative 'wall'
+require_relative 'chip'
 
 class Escape < Gosu::Window
   DAMPING = 0.90
@@ -24,6 +25,7 @@ class Escape < Gosu::Window
     @floor = Wall.new(self, 400, 810, 800, 20)
     @left_wall = Wall.new(self, -10, 400, 20, 800)
     @right_wall = Wall.new(self, 810, 470, 20, 660)
+    @player = Chip.new(self, 70, 700)
   end
 
   def update
@@ -46,6 +48,7 @@ class Escape < Gosu::Window
     @platforms.each do |platform|
       platform.draw
     end
+    @player.draw
   end
 
   def make_platforms
