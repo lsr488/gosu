@@ -22,9 +22,11 @@ class Escape < Gosu::Window
     @space.gravity = CP::Vec2.new(0.0, GRAVITY)
     @boulders = []
     @platforms = make_platforms
+
     @floor = Wall.new(self, 400, 810, 800, 20)
     @left_wall = Wall.new(self, -10, 400, 20, 800)
     @right_wall = Wall.new(self, 810, 470, 20, 660)
+
     @player = Chip.new(self, 70, 700)
   end
 
@@ -37,6 +39,7 @@ class Escape < Gosu::Window
         @boulders.push Boulder.new(self, 200 + rand(400), -20)
       end
     end # end UNLESS game_over LOOP
+    @player.check_footing(@platforms + @boulders)
     if button_down?(Gosu::KbRight)
       @player.move_right
     elsif button_down?(Gosu::KbLeft)

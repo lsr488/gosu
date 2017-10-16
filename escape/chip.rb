@@ -13,7 +13,9 @@ class Chip
     @window = window
     space = window.space
     @player_images = Gosu::Image.load_tiles('images/chip.png', 40, 65)
+    @player_image_index = 0
     @body = CP::Body.new(50, 100 / 0.0)
+    @body.p = CP::Vec2.new(x, y)
     @body.v_limit = SPEED_LIMIT
     bounds = [
       CP::Vec2.new(-10, -32),
@@ -27,14 +29,13 @@ class Chip
     space.add_body(@body)
     space.add_shape(shape)
     @action = :stand
-    @player_image_index = 0
     @off_ground = true
   end
 
   def draw
     case @action
     when :stand, :jump_right
-      @player_images[@player_image_index].draw_rot(@body.p.x, @body.p.y, 2, 0)
+      @player_images[0].draw_rot(@body.p.x, @body.p.y, 2, 0)
     when :run_right
       @player_images[@player_image_index].draw_rot(@body.p.x, @body.p.y, 2, 0)
       @player_image_index = (@player_image_index + 0.2) % 7
@@ -42,9 +43,9 @@ class Chip
       @player_images[@player_image_index].draw_rot(@body.p.x, @body.p.y, 2, 0, 0.5, 0.5, -1, 1)
       @player_image_index = (@player_image_index + 0.2) % 7
     when :jump_left
-      @player_images[@player_image_index].draw_rot(@body.p.x, @body.p.y, 2, 0, 0.5, 0.5, -1, 1)
+      @player_images[0].draw_rot(@body.p.x, @body.p.y, 2, 0, 0.5, 0.5, -1, 1)
     else
-      @player_images[@player_image_index].draw_rot(@body.p.x, @body.p.y, 2, 0)
+      @player_images[0].draw_rot(@body.p.x, @body.p.y, 2, 0)
     end
   end
 
@@ -70,7 +71,8 @@ class Chip
 
   def jump
     if @off_ground
-      @body.apply_impulse(CP::Vec2.new(0, -AIR_JUMP_IMPULSE), CP::Vec2.new(0,0))
+      @body.apply_impulse(CP::Vec2.new(0, -AIR_JUMP_IMPULSE),
+                          CP::Vec2.new(0,0))
     else
       @body.apply_impulse(CP::Vec2.new(0, -JUMP_IMPULSE), CP::Vec2.new(0,0))
       if @action == :left
