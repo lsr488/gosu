@@ -32,6 +32,10 @@ class Chip
     @off_ground = true
   end
 
+  def x
+    @body.p.x
+  end
+
   def draw
     case @action
     when :stand, :jump_right
@@ -89,7 +93,7 @@ class Chip
 
   def touching?(footing)
     x_diff = (@body.p.x - footing.body.p.x).abs
-    y_diff = (@body.p.y - footing.body.p.y).abs
+    y_diff = (@body.p.y + 30 - footing.body.p.y).abs
     x_diff < 12 + footing.width/2 and y_diff < 5 + footing.height/2
   end
 
