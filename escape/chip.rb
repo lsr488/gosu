@@ -36,6 +36,10 @@ class Chip
     @body.p.x
   end
 
+  def y
+    @body.p.y
+  end
+
   def draw
     case @action
     when :stand, :jump_right
