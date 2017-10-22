@@ -108,6 +108,27 @@ class Escape < Gosu::Window
 
   def make_platforms
     platforms = []
+    (0..10).each do |row|
+      (0..4).each do |column|
+        x = column * 300 + 100 # places a platform every other column
+        y = row * 140 + 100 # places a platform every other row
+        if row % 2 == 0
+          x -= 150
+        end
+        x += rand(100) - 50
+        y += rand(100) - 50
+        num = rand
+        if num < 0.40
+          direction = rand < 0.5 ? :vertical : :horizontal
+          range = 30 + rand(40)
+          platforms.push MovingPlatform.new(self, x, y, range, direction)
+        elsif num < 0.09
+          platforms.push Platform.new(self, x, y)
+        end
+      end # end |column| loop
+    end # end |row| loop
+
+    # hard-coded platforms from v1 of the gaame
     # platforms.push Platform.new(self, 150, 700)
     # platforms.push Platform.new(self, 320, 650)
     # platforms.push Platform.new(self, 150, 500)
@@ -121,6 +142,7 @@ class Escape < Gosu::Window
     # platforms.push MovingPlatform.new(self,450,230,70,:horizontal)
     # platforms.push Platform.new(self,750,140)
     # platforms.push Platform.new(self,700,700)
+    platforms.push Platform.new(self, 1550, 140)
     return platforms
   end
 
