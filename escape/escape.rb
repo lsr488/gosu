@@ -39,6 +39,9 @@ class Escape < Gosu::Window
 
     @music = Gosu::Song.new('sounds/zanzibar.ogg')
     @music.play(true)
+
+    @quake_time = 0
+    @quake_sound = Gosu::Sample.new('sounds/quake.ogg')
   end
 
   def update
@@ -55,6 +58,16 @@ class Escape < Gosu::Window
       @platforms.each do |platform|
         platform.move if platform.respond_to?(:move)
       end
+      if rand < 0.001
+        quake
+      end
+      @quake_time -= 1
+      if @quake_time > 0
+        @camera.shake
+        if rand < 0.2
+          @boulders.push Boulder.new(self, 200 + rand(1200), -20)
+        end
+      end
       if button_down?(Gosu::KbRight)
         @player.move_right
       elsif button_down?(Gosu::KbLeft)
@@ -67,7 +80,7 @@ class Escape < Gosu::Window
         @win_time = Gosu.milliseconds
       end
     end # end UNLESS game_over LOOP
-  end
+  end # end UPDATE method
 
   def draw
     @camera.view do # draws the background tile image
@@ -122,7 +135,7 @@ class Escape < Gosu::Window
           direction = rand < 0.5 ? :vertical : :horizontal
           range = 30 + rand(40)
           platforms.push MovingPlatform.new(self, x, y, range, direction)
-        elsif num < 0.09
+        elsif num < 0.90
           platforms.push Platform.new(self, x, y)
         end
       end # end |column| loop
@@ -152,6 +165,14 @@ class Escape < Gosu::Window
     end
     if id == Gosu::KbEscape
       close
+    end
+  end
+
+  def quake
+    @quake_time = 30
+    @quake_sound.play
+    @boulders.each do |boulder|
+      boulder.quake
     end
   end
 

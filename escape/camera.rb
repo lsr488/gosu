@@ -26,4 +26,9 @@ class Camera
     @y_offset = 0 if @y_offset < 0
   end
 
+  def shake
+    @x_offset += rand(9) - 4
+    @y_offset += rand(9) -4
+  end
+
 end # end CLASS
